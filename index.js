@@ -5,9 +5,32 @@ const pool = require('./db');
 //mw
 app.use(express.json());
 
+//rendering engine
+app.set('view engine','ejs');
+
 //routes
 app.get('/', (req, res) => {
-    res.sendFile('./view/index.html',{root:__dirname});
+    res.render('index');
+})
+
+app.get('/gender', (req, res) => {
+    res.render('gender');
+})
+
+app.get('/ethnicity', (req, res) => {
+    res.render('ethnicity');
+})
+
+app.get('/religion', (req, res) => {
+    res.render('religion');
+})
+
+app.get('/service', (req, res) => {
+    res.render('service');
+})
+
+app.get('/eth_insur', (req, res) => {
+    res.render('eth_insur');
 })
 
 //routes
@@ -26,6 +49,5 @@ app.get('/',async(req,res)=>{
 //port
 app.listen(5000, () => {
     console.log("server running on port 5000");
-
 })
 
