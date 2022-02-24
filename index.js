@@ -5,6 +5,10 @@ const pool = require('./db');
 //mw
 app.use(express.json());
 
+//routes
+app.get('/', (req, res) => {
+    res.sendFile('./view/index.html',{root:__dirname});
+})
 
 //routes
 
@@ -20,8 +24,8 @@ app.get('/',async(req,res)=>{
 });
 
 //port
-app.listen(5000, () =>{
+app.listen(5000, () => {
     console.log("server running on port 5000");
-    
+
 })
 
