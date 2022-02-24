@@ -4,6 +4,7 @@ const pool = require('./db');
 
 //mw
 app.use(express.json());
+app.use(express.static('public'));
 
 //rendering engine
 app.set('view engine','ejs');
