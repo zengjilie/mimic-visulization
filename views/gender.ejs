@@ -11,13 +11,7 @@
 
 <body>
     <div>
-        <ul class="tabbar">
-            <li><a href="/gender">Gender</a></li>
-            <li><a href="/ethnicity">Ethnicity</a></li>
-            <li><a href="/religion">Religion</a></li>
-            <li><a href="/service">Service</a></li>
-            <li><a href="/eth_insur">Ethnicity & Insurance</a></li>
-        </ul>
+        <%- include('./partials/navbar.ejs') %> 
 
         <div id="main" style="width:800px; height:400px;"></div>
     </div>
@@ -28,21 +22,21 @@
 
         var option = {
         title: {
-          text: 'ECharts Getting Started Example'
+          text: 'Gender Distribution'
         },
         tooltip: {},
         legend: {
-          data: ['sales']
+          data: ['Number']
         },
         xAxis: {
-          data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks']
+          data: ['Male', 'Female']
         },
         yAxis: {},
         series: [
           {
-            name: 'sales',
+            name: 'gender',
             type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
+            data: [5, 20]
           }
         ]
       };
