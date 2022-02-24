@@ -11,24 +11,21 @@ app.set("view engine", "ejs");
 
 //routes
 app.get("/", async (req, res) => {
-    try {
-        //reqest gender data
-        const data = await pool.query("SELECT * FROM patient");
-        console.log(data);
-        res.json(data);
-    } catch (err) {
-        console.log(err);
-    }
     res.render("index");
 });
 
-app.get("/gender", (req, res) => {
+app.get("/gender", async (req, res) => {
     try {
-        // request gender distribution data
-        // const data = await pool.query("SELECT * FROM patient");
-        // console.log(data);
-        const data = 0;
-        res.render("gender", { data });
+        //reqest gender data
+        const femaleData = await pool.query(
+            "SELECT * FROM patient WHERE gender = 'F' "
+        );
+        const maleData = await pool.query(
+            "SELECT * FROM patient WHERE gender = 'M' "
+        );
+        const femaleNum = femaleData.rows.length;
+        const maleNum = maleData.rows.length;
+        res.render("gender", { femaleNum, maleNum });
     } catch (err) {
         console.log(err);
     }
