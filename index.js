@@ -1,3 +1,4 @@
+const { resolveInclude } = require("ejs");
 const express = require("express");
 const app = express();
 const pool = require("./db");
