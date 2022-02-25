@@ -1,5 +1,8 @@
 # MIMIC Data Visulization
 
+## Demo Video
+[Click to See](https://youtu.be/124ah_uCnQM)
+
 ## Tech Stack
 
 * Front End: JavaScript, HTML/SCSS, Apache Echart
@@ -8,9 +11,10 @@
 
 ## Content
 
-* Gender distribution(hostgram)
-* Age distribution(box plot)
-* Enthnicity distribution(dots mapping)
-* Religion (donut)
-* Service (disk mapping)
-<!-- * Enthnicity + insurance (hostgram) -->
+* Gender distribution
+* Age distribution by Gender
+* Enthnicity distribution
+* Religion distribution 
+* Insurance distribution
+
+## Usage
