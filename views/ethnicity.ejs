@@ -17,10 +17,9 @@
     </div>
 
     <script type="text/javascript">
-
-        const rawData = '<%- JSON.stringify(data)%>'; 
-        const {white, asian, black, unknown, other, hispanic, puertorican, unable,indian} = JSON.parse(rawData);
-        console.log(white);
+        const rawData = '<%- data%>'; 
+        const data = JSON.parse(rawData);
+        console.log(data);
 
         var myChart = echarts.init(document.getElementById('main'));
 
@@ -33,29 +32,30 @@
                 trigger: 'item'
             },
             legend: {
-                orient: 'vertical',
+                orient: 'horizontal',
+                top:'8%',
                 left: 'left'
             },
             series: [
                 {
                 name: 'Access From',
                 type: 'pie',
-                // radius: ['40%', '60%'],
-                radius: ['50%'],
+                radius: ['40%', '60%'],
+                // radius: ['50%'],
                 center:['50%','50%'],
-                // avoidLabelOverlap: false,
-                // itemStyle: {
-                //     borderRadius: 10,
-                //     borderColor: '#fff',
-                //     borderWidth: 2
-                // },
-                // label: {
-                //     show: false,
-                //     position: 'center'
-                // },
-                // labelLine: {
-                //     show: false
-                // },
+                avoidLabelOverlap: false,
+                itemStyle: {
+                    borderRadius: 10,
+                    borderColor: '#fff',
+                    borderWidth: 2
+                },
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                labelLine: {
+                    show: false
+                },
                 emphasis: {
                     itemStyle: {
                     shadowBlur: 10,
@@ -64,15 +64,15 @@
                     }
                 },
                 data: [
-                    { value:white, name: 'WHITE' },
-                    { value:asian, name: 'ASIAN' },
-                    { value:black, name: 'BLACK/AFRICAN AMERICAN' },
-                    { value:unknown, name: 'UNKNOWN/NOT SPECIFIED' },
-                    { value:other, name: 'OTHER' },
-                    { value:hispanic, name: 'HISPANIC OR LATINO' },
-                    { value:puertorican, name: 'HISPANIC/LATINO - PUERTO RICAN' },
-                    { value:indian, name: 'AMERICAN INDIAN/ALASKA NATIVE FEDERALLY RECOGNIZED TRIBE' },
-                    { value:unable, name: 'UNABLE TO OBTAIN' },
+                    { value:data[0].value, name:data[0].key },
+                    { value:data[1].value, name:data[1].key },
+                    { value:data[2].value, name:data[2].key },
+                    { value:data[3].value, name:data[3].key },
+                    { value:data[4].value, name:data[4].key },
+                    { value:data[5].value, name:data[5].key },
+                    { value:data[6].value, name:data[6].key },
+                    { value:data[7].value, name:data[7].key },
+                    { value:data[8].value, name:data[8].key },
                 ]
                 }
             ]

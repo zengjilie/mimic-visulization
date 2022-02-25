@@ -40,64 +40,24 @@ app.get("/ethnicity", async (req, res) => {
             "SELECT ethnicity FROM admissions"
         );
 
-        //count data
-        let whiteNum = 0;
-        let asianNum = 0;
-        let blackNum = 0;
-        let unknowNum = 0;
-        let otherNum = 0;
-        let hispanicNum = 0;
-        let puertoricanNum = 0;
-        let indianNum = 0;
-        let unableToObtainNum = 0;
+        const map = new Map();
 
         ethnicityData.rows.forEach((entry) => {
-            switch (entry.ethnicity) {
-                case "WHITE":
-                    whiteNum++;
-                    break;
-                case "ASIAN":
-                    asianNum++;
-                    break;
-                case "BLACK/AFRICAN AMERICAN":
-                    blackNum++;
-                    break;
-                case "UNKNOWN/NOT SPECIFIED":
-                    unknowNum++;
-                    break;
-                case "OTHER":
-                    otherNum++;
-                    break;
-                case "HISPANIC OR LATINO":
-                    hispanicNum++;
-                    break;
-                case "HISPANIC/LATINO - PUERTO RICAN":
-                    puertoricanNum++;
-                    break;
-                case "AMERICAN INDIAN/ALASKA NATIVE FEDERALLY RECOGNIZED TRIBE":
-                    indianNum++;
-                    break;
-                case "UNABLE TO OBTAIN":
-                    unableToObtainNum++;
-                    break;
-                default:
-                    break;
+            const key = entry.ethnicity;
+            if (map.has(key)) {
+                map.set(key, map.get(key) + 1);
+            } else if (key != null) {
+                map.set(key, 1);
             }
         });
 
-        const data = {
-            white: whiteNum,
-            asian: asianNum,
-            black: blackNum,
-            unknown: unknowNum,
-            other: otherNum,
-            hispanic: hispanicNum,
-            puertorican: puertoricanNum,
-            indian: indianNum,
-            unable: unableToObtainNum,
-        };
+		const data = [];
 
-        res.render("ethnicity", { data });
+        for (let [key, value] of map) {
+            data.push({ key, value });
+        }
+
+        res.render("ethnicity", { data:JSON.stringify(data) });
     } catch (err) {}
 });
 
