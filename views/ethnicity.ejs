@@ -5,18 +5,69 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIMIC Data Visulization</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div>
-        <ul >
-            <li><a href="/gender">Gender</a></li>
-            <li><a href="/ethnicity">Ethnicity</a></li>
-            <li><a href="/religion">Religion</a></li>
-            <li><a href="/service">Service</a></li>
-            <li><a href="/eth_insur">Ethnicity & Insurance</a></li>
-        </ul>
+        <%- include('./partials/navbar.ejs') %> 
+
+        <div id="main" style="width:800px; height:400px;"></div>
     </div>
+
+    <script type="text/javascript">
+
+        const data = '<%= data%>'; 
+
+        var myChart = echarts.init(document.getElementById('main'));
+
+        option = {
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                top: '5%',
+                left: 'center'
+            },
+            series: [
+                {
+                name: 'Access From',
+                type: 'pie',
+                radius: ['40%', '70%'],
+                avoidLabelOverlap: false,
+                itemStyle: {
+                    borderRadius: 10,
+                    borderColor: '#fff',
+                    borderWidth: 2
+                },
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    label: {
+                    show: true,
+                    fontSize: '40',
+                    fontWeight: 'bold'
+                    }
+                },
+                labelLine: {
+                    show: false
+                },
+                data: [
+                    { value: 1048, name: 'Search Engine' },
+                    { value: 735, name: 'Direct' },
+                    { value: 580, name: 'Email' },
+                    { value: 484, name: 'Union Ads' },
+                    { value: 300, name: 'Video Ads' }
+                ]
+                }
+            ]
+            }; 
+
+            myChart.setOption(option);
+    </script>
 </body>
 
 </html>

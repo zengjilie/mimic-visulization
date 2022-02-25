@@ -31,8 +31,72 @@ app.get("/gender", async (req, res) => {
     }
 });
 
-app.get("/ethnicity", (req, res) => {
-    res.render("ethnicity");
+app.get("/ethnicity", async (req, res) => {
+    try {
+        //request ethnicity data
+        const ethnicityData = await pool.query(
+            "SELECT ethnicity FROM admissions"
+        );
+
+        //count data
+        let whiteNum = 0;
+        let asianNum = 0;
+        let blackNum = 0;
+        let unknowNum = 0;
+        let otherNum = 0;
+        let hispanicNum = 0;
+        let puertoricanNum = 0;
+        let indianNum = 0;
+        let unableToObtainNum = 0;
+
+        ethnicityData.rows.forEach((entry) => {
+            switch (entry.ethnicity) {
+                case "WHITE":
+                    whiteNum++;
+					break;
+                case "ASIAN":
+                    asianNum++;
+					break;
+                case "BLACK/AFRICAN AMERICAN":
+                    blackNum++;
+					break;
+                case "UNKNOWN/NOT SPECIFIED":
+                    unknowNum++;
+					break;
+                case "OTHER":
+                    otherNum++;
+					break;
+                case "HISPANIC OR LATINO":
+                    hispanicNum++;
+					break;
+                case "HISPANIC/LATINO - PUERTO RICAN":
+                    puertoricanNum++;
+					break;
+                case "AMERICAN INDIAN/ALASKA NATIVE FEDERALLY RECOGNIZED TRIBE":
+                    indianNum++;
+					break;
+                case "UNABLE TO OBTAIN":
+                    unableToObtainNum++;
+					break;
+				default:
+					break;
+            }
+        });
+
+		const data = {
+			white:whiteNum,
+			asian:asianNum,
+			black:blackNum,
+			unknown: unknowNum,
+			other: otherNum,
+			hispanic: hispanicNum,
+			puertorican: puertoricanNum,
+			indian: indianNum,
+			unable: unableToObtainNum
+		}
+
+        res.render("ethnicity",{data});
+    } catch (err) {}
 });
 
 app.get("/religion", (req, res) => {
