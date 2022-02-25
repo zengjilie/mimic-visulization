@@ -1,5 +1,6 @@
 const { resolveInclude } = require("ejs");
 const express = require("express");
+const { RowDescriptionMessage } = require("pg-protocol/dist/messages");
 const app = express();
 const pool = require("./db");
 
@@ -161,8 +162,38 @@ app.get("/age", async (req, res) => {
     }
 });
 
-app.get("/eth_insur", (req, res) => {
-    res.render("eth_insur");
+app.get("/insurance", async(req, res) => {
+    try {
+        //request ethnicity data
+        const insuranceData = await pool.query(
+            "SELECT insurance FROM admissions"
+        );
+
+        //hashmap record
+        const map = new Map();
+
+        insuranceData.rows.forEach((entry) => {
+            const key = entry.insurance;
+            if (map.has(key)) {
+                map.set(key, map.get(key) + 1);
+            } else if (key != null) {
+                map.set(key, 1);
+            }
+        });
+
+        console.log(map);
+
+        const data = [];
+
+        for (let [key, value] of map) {
+            data.push({ name:key, value });
+        }
+
+		// res.json(map);
+        res.render("insurance", { data: JSON.stringify(data) });
+    } catch (err) {
+        console.log(err);
+    }
 });
 
 //port
