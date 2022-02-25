@@ -13,7 +13,7 @@
     <div>
         <%- include('./partials/navbar.ejs') %> 
 
-        <div id="main" style="width:800px; height:400px;"></div>
+        <div id="main" style="width:100vh; height:100vh;"></div>
     </div>
 
     <script type="text/javascript">
@@ -25,37 +25,43 @@
         var myChart = echarts.init(document.getElementById('main'));
 
         option = {
+            title:{
+                text: 'Ethnicity Distribution',
+                left:'center',
+            },
             tooltip: {
                 trigger: 'item'
             },
             legend: {
-                top: '0',
-                left: 'center'
+                orient: 'vertical',
+                left: 'left'
             },
             series: [
                 {
                 name: 'Access From',
                 type: 'pie',
-                radius: ['40%', '70%'],
-                avoidLabelOverlap: false,
-                itemStyle: {
-                    borderRadius: 10,
-                    borderColor: '#fff',
-                    borderWidth: 2
-                },
-                label: {
-                    show: false,
-                    position: 'center'
-                },
+                // radius: ['40%', '60%'],
+                radius: ['50%'],
+                center:['50%','50%'],
+                // avoidLabelOverlap: false,
+                // itemStyle: {
+                //     borderRadius: 10,
+                //     borderColor: '#fff',
+                //     borderWidth: 2
+                // },
+                // label: {
+                //     show: false,
+                //     position: 'center'
+                // },
+                // labelLine: {
+                //     show: false
+                // },
                 emphasis: {
-                    label: {
-                    show: true,
-                    fontSize: '20',
-                    fontWeight: 'bold'
+                    itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
                     }
-                },
-                labelLine: {
-                    show: false
                 },
                 data: [
                     { value:white, name: 'WHITE' },

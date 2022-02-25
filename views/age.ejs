@@ -1,0 +1,118 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
+    <title>MIMIC Data Visulization</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div>
+        <%- include('./partials/navbar.ejs') %> 
+        <div id="main" style="width:100vh; height:100vh;"></div>
+    </div>
+
+    <script type="text/javascript">
+        const femaleRawData = '<%- femaleData %>';
+        const maleRawData = '<%- maleData %>';
+
+        const femaleData = JSON.parse(femaleRawData);
+        const maleData = JSON.parse(maleRawData);
+
+        console.log(femaleData);
+
+        var myChart = echarts.init(document.getElementById('main'));
+
+        option = {
+            title: [
+                {
+                    text: 'Age Distribution by Gender',
+                    left: 'center'
+                },
+                { 
+                    borderColor: '#999',
+                    borderWidth: 1,
+                    textStyle: {
+                        fontWeight: 'normal',
+                        fontSize: 14,
+                        lineHeight: 20
+                    },
+                    left: '10%',
+                    top: '90%'
+                }
+            ],
+            dataset: [
+                {
+                    source: [femaleData,maleData]
+                },
+                {
+                    transform: {
+                        type: 'boxplot',
+                        config:{
+                            itemNameFormatter: function (params) {
+                                if(params.value == 0){
+                                    return 'female';
+                                }
+                                if(params.value == 1){
+                                    return 'male';
+                                }
+                            } 
+                        }
+                    }
+                },
+                {
+                    fromDatasetIndex: 1,
+                    fromTransformResult: 1
+                }
+            ],
+            tooltip: {
+                trigger: 'item',
+                axisPointer: {
+                type: 'shadow'
+                }
+            },
+            grid: {
+                left: '10%',
+                right: '10%',
+                bottom: '15%'
+            },
+            xAxis: {
+                name:'gender',
+                type: 'category',
+                boundaryGap: true,
+                nameGap: 30,
+                splitArea: {
+                show: false
+                },
+                splitLine: {
+                show: false
+                }
+            },
+            yAxis: {
+                type: 'value',
+                name: 'age',
+                splitArea: {
+                show: true
+                }
+            },
+            series: [
+                {
+                    name: 'boxplot',
+                    type: 'boxplot',
+                    datasetIndex: 1
+                },
+                {
+                    name: 'outlier',
+                    type: 'scatter',
+                    datasetIndex: 2
+                }
+            ]
+            };
+            myChart.setOption(option);
+        </script>
+    </body>
+
+</html>

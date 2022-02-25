@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIMIC Data Visulization</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -12,34 +13,62 @@
     <div>
         <%- include('./partials/navbar.ejs') %> 
 
-        <div id="main" style="width:800px; height:400px;"></div>
+        <div id="main" style="width:100vh; height:100vh;"></div>
     </div>
 
     <script type="text/javascript">
-
-        const femaleNum = '<%= femaleNum %>'; 
-        const maleNum = '<%= maleNum %>'; 
+        const rawData = '<%- data%>';
+        const data = JSON.parse(rawData);
+        console.log(data);
 
         var myChart = echarts.init(document.getElementById('main'));
 
-        var option = {
+        option = {
             title: {
-            text: 'Gender Distribution'
+                text: 'Religion Distribution'
             },
-            tooltip: {},
             legend: {
-            data: ['Number']
+                data: [
+                    'Religon',
+                ]
             },
-            xAxis: {
-            data: ['Male', 'Female']
+            radar: {
+                // shape: 'circle',
+                indicator: [
+                    { name: data[0].key, max: 100},
+                    { name: data[1].key, max: 100},
+                    { name: data[2].key, max: 100},
+                    { name: data[3].key, max: 100},
+                    { name: data[4].key, max: 100},
+                    { name: data[5].key, max: 100},
+                    { name: data[6].key, max: 100},
+                    { name: data[7].key, max: 100},
+                    { name: data[8].key, max: 100},
+                    { name: data[9].key, max: 100}
+                ]
             },
-            yAxis: {},
             series: [
-            {
-                name: 'gender',
-                type: 'bar',
-                data: [maleNum, femaleNum]
-            }
+                {
+                name: 'Religion Distribution',
+                type: 'radar',
+                data: [
+                    {
+                    value: [
+                        data[0].value, 
+                        data[1].value, 
+                        data[2].value, 
+                        data[3].value, 
+                        data[4].value, 
+                        data[5].value, 
+                        data[6].value, 
+                        data[7].value, 
+                        data[8].value, 
+                        data[9].value, 
+                    ],
+                    name: 'Religion'
+                    },
+                ]
+                }
             ]
         };
 

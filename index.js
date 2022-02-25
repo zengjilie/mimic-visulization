@@ -54,58 +54,111 @@ app.get("/ethnicity", async (req, res) => {
             switch (entry.ethnicity) {
                 case "WHITE":
                     whiteNum++;
-					break;
+                    break;
                 case "ASIAN":
                     asianNum++;
-					break;
+                    break;
                 case "BLACK/AFRICAN AMERICAN":
                     blackNum++;
-					break;
+                    break;
                 case "UNKNOWN/NOT SPECIFIED":
                     unknowNum++;
-					break;
+                    break;
                 case "OTHER":
                     otherNum++;
-					break;
+                    break;
                 case "HISPANIC OR LATINO":
                     hispanicNum++;
-					break;
+                    break;
                 case "HISPANIC/LATINO - PUERTO RICAN":
                     puertoricanNum++;
-					break;
+                    break;
                 case "AMERICAN INDIAN/ALASKA NATIVE FEDERALLY RECOGNIZED TRIBE":
                     indianNum++;
-					break;
+                    break;
                 case "UNABLE TO OBTAIN":
                     unableToObtainNum++;
-					break;
-				default:
-					break;
+                    break;
+                default:
+                    break;
             }
         });
 
-		const data = {
-			white:whiteNum,
-			asian:asianNum,
-			black:blackNum,
-			unknown: unknowNum,
-			other: otherNum,
-			hispanic: hispanicNum,
-			puertorican: puertoricanNum,
-			indian: indianNum,
-			unable: unableToObtainNum
-		}
+        const data = {
+            white: whiteNum,
+            asian: asianNum,
+            black: blackNum,
+            unknown: unknowNum,
+            other: otherNum,
+            hispanic: hispanicNum,
+            puertorican: puertoricanNum,
+            indian: indianNum,
+            unable: unableToObtainNum,
+        };
 
-        res.render("ethnicity",{data});
+        res.render("ethnicity", { data });
     } catch (err) {}
 });
 
-app.get("/religion", (req, res) => {
-    res.render("religion");
+app.get("/religion", async (req, res) => {
+    try {
+        //request ethnicity data
+        const religionData = await pool.query(
+            "SELECT religion FROM admissions"
+        );
+
+        //hashmap record
+        const map = new Map();
+
+        religionData.rows.forEach((entry) => {
+            const key = entry.religion;
+            if (map.has(key)) {
+                map.set(key, map.get(key) + 1);
+            } else if (key != null) {
+                map.set(key, 1);
+            }
+        });
+
+        console.log(map);
+
+        const data = [];
+
+        for (let [key, value] of map) {
+            data.push({ key, value });
+        }
+
+        res.render("religion", { data: JSON.stringify(data) });
+    } catch (err) {
+        console.log(err);
+    }
 });
 
-app.get("/service", (req, res) => {
-    res.render("service");
+app.get("/age", async (req, res) => {
+    try {
+        //reqest gender data
+        const femaleAge = await pool.query(
+            "SELECT (dod - dob)/365 AS age FROM patient WHERE gender = 'F'"
+        );
+        const maleAge = await pool.query(
+            "SELECT (dod - dob)/365 AS age FROM patient WHERE gender = 'M'"
+        );
+		
+		const femaleData = [];
+		femaleAge.rows.forEach(entry =>{
+			if(entry.age.days>=0 && entry.age.days <= 100)
+			femaleData.push(entry.age.days);
+		})
+		const maleData = [];
+		maleAge.rows.forEach(entry =>{
+			if(entry.age.days>=0 && entry.age.days <= 100)
+			maleData.push(entry.age.days);
+		})
+
+        res.render("age",{femaleData:JSON.stringify(femaleData), maleData:JSON.stringify(maleData)});
+
+    } catch (err) {
+        console.log(err);
+    }
 });
 
 app.get("/eth_insur", (req, res) => {
