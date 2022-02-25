@@ -30,7 +30,7 @@ Here are some tutorials on how to install PostgreSQL on your computer
 
 After you installed PostgreSQL, you need to use a GUI(Graphical Uesr Interface) to interact with PostgreSQL, I recommand using [PGAdmin](https://www.pgadmin.org/).
 
-After you installed PGAdmain, you can start to import the MIMIC Demo III data on this website -> https://physionet.org/content/mimiciii-demo/1.4
+After you installed PGAdmin, you can start to import the MIMIC Demo III data on this website -> https://physionet.org/content/mimiciii-demo/1.4
 
 The csv files I used are `admission.csv` and `patient.csv`, you need to create a database named `MIMIC`, then create two tables, one is called `admissions`, the other one is called `patient` import these two csv files to your PostgreSQL database.
 
