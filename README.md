@@ -28,21 +28,21 @@ Here are some tutorials on how to install PostgreSQL on your computer
 -   Mac -> https://www.youtube.com/watch?v=-Dux6hnmWNE
 -   Windows -> https://www.youtube.com/watch?v=BLH3s5eTL4Y
 
-After installed the PostgreSQL, you need to use a GUI(Graphical Uesr Interface) to interface with PostSQL, I recommand using [PGAdmin](https://www.pgadmin.org/).
+After you installed PostgreSQL, you need to use a GUI(Graphical Uesr Interface) to interact with PostgreSQL, I recommand using [PGAdmin](https://www.pgadmin.org/).
 
-After you installed PGAdmain we can start to import the MIMIC Demo III data on this website -> https://physionet.org/content/mimiciii-demo/1.4
+After you installed PGAdmain, you can start to import the MIMIC Demo III data on this website -> https://physionet.org/content/mimiciii-demo/1.4
 
-The csv files I used are `admission.csv` and `patient.csv`, you need to create a database named `MIMIC`, then create two tables, one is called `admissions`, the other one is called `patient` import these two csv file to the PostgreSQL database.
+The csv files I used are `admission.csv` and `patient.csv`, you need to create a database named `MIMIC`, then create two tables, one is called `admissions`, the other one is called `patient` import these two csv files to your PostgreSQL database.
 
-You can watch this tutorial on how to import csv files to PostgreSQL table ->
+You can watch this tutorial on how to import csv files to PostgreSQL database table ->
 https://www.youtube.com/watch?v=DMl5fsc8PSk&t=378s
 
-After you Successfully setup the database, you `git clone` this project and ready to use it
+After you successfully setup the database, you can `git clone` this project and ready to use it.
 
-After you cloned this project into your local folder, you can run
+After you cloned this project into your local folder, you can run.
 
-`npm install ` this should install all the node_module dependencies you need
+`npm install ` this should install all the node_modules you need.
 
-`npm run start` this should start the project using [nodemon](https://www.npmjs.com/package/nodemon) listening to port 5000
+`npm run start` this should start the project using [nodemon](https://www.npmjs.com/package/nodemon) listening to port 5000.
 
-Go to `localhost:5000`, you can play around with this project
+Go to `localhost:5000`, you can play around with this project.
