@@ -51,13 +51,13 @@ app.get("/ethnicity", async (req, res) => {
             }
         });
 
-		const data = [];
+        const data = [];
 
         for (let [key, value] of map) {
             data.push({ key, value });
         }
 
-        res.render("ethnicity", { data:JSON.stringify(data) });
+        res.render("ethnicity", { data: JSON.stringify(data) });
     } catch (err) {}
 });
 
@@ -103,26 +103,28 @@ app.get("/age", async (req, res) => {
         const maleAge = await pool.query(
             "SELECT (dod - dob)/365 AS age FROM patient WHERE gender = 'M'"
         );
-		
-		const femaleData = [];
-		femaleAge.rows.forEach(entry =>{
-			if(entry.age.days>=0 && entry.age.days <= 100)
-			femaleData.push(entry.age.days);
-		})
-		const maleData = [];
-		maleAge.rows.forEach(entry =>{
-			if(entry.age.days>=0 && entry.age.days <= 100)
-			maleData.push(entry.age.days);
-		})
 
-        res.render("age",{femaleData:JSON.stringify(femaleData), maleData:JSON.stringify(maleData)});
+        const femaleData = [];
+        femaleAge.rows.forEach((entry) => {
+            if (entry.age.days >= 0 && entry.age.days <= 100)
+                femaleData.push(entry.age.days);
+        });
+        const maleData = [];
+        maleAge.rows.forEach((entry) => {
+            if (entry.age.days >= 0 && entry.age.days <= 100)
+                maleData.push(entry.age.days);
+        });
 
+        res.render("age", {
+            femaleData: JSON.stringify(femaleData),
+            maleData: JSON.stringify(maleData),
+        });
     } catch (err) {
         console.log(err);
     }
 });
 
-app.get("/insurance", async(req, res) => {
+app.get("/insurance", async (req, res) => {
     try {
         //request ethnicity data
         const insuranceData = await pool.query(
@@ -146,10 +148,10 @@ app.get("/insurance", async(req, res) => {
         const data = [];
 
         for (let [key, value] of map) {
-            data.push({ name:key, value });
+            data.push({ name: key, value });
         }
 
-		// res.json(map);
+        // res.json(map);
         res.render("insurance", { data: JSON.stringify(data) });
     } catch (err) {
         console.log(err);
