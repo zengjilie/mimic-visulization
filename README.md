@@ -6,7 +6,7 @@
 
 ## Tech Stack
 
--   Front End: JavaScript, HTML/SCSS, [Apache Echarts](https://echarts.apache.org/zh/index.html)
+-   Front End: JavaScript, HTML/SCSS, [Apache ECharts](https://echarts.apache.org/zh/index.html)
 -   Back End: NodeJS, ExpressJS, [EJS](https://ejs.co/)
 -   Database: [PostgreSQL](https://www.postgresql.org/)
 
