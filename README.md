@@ -18,6 +18,7 @@
 -   Age distribution by Gender
 -   Insurance distribution
 
+-   timeline 
 ## Usage
 
 In order to run this repo on your local machine, you need to install [PostgreSQL](https://www.postgresql.org/) first.
