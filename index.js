@@ -1,6 +1,5 @@
 const { resolveInclude } = require("ejs");
 const express = require("express");
-const { RowDescriptionMessage } = require("pg-protocol/dist/messages");
 const app = express();
 const pool = require("./db");
 
